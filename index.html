@@ -1,20 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- TODO: glöm ej att byta språk här -->
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/ico" href="/js-template/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Projekt</title>
-  <script type="module" crossorigin src="/js-template/assets/index.dcd3faff.js"></script>
-  <link rel="stylesheet" href="/js-template/assets/index.09951560.css">
+  <title>Weather app</title>
+
+  
+  <script src="https://kit.fontawesome.com/f27d901c01.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/js-template/assets/index.01479bbd.css">
 </head>
 
 <body>
   <main>
-    <div class="app" id="app"></div> <!-- TODO: går bra att radera -->
-    <!-- TODO: skriv din kod här, innan script-taggen -->
+    <div class="app" id="app">
+      <button class="findMyLocation">Find my location</button>
+      <p class="currentPositionFailure"></p>
+
+      <div class="weatherInfo">
+        <h1 class="cityInfo"></h1>
+        <h2 class="temperatureInfo"></h2>
+        <p class="descriptionInfo"></p>
+      </div>
+      <div class="city-search">
+        <input type="text" class="searchInput" placeholder="City">
+        <button class="searchCity">Search</button>
+      </div>
+    </div>
   </main>
 
   <!-- TODO
@@ -22,7 +34,7 @@
     - Kontrollera tillgänglighet: https://www.a11yproject.com/checklist/ & Chrome Lighthouse/Firefox Accessibility Tools
     - Validera genererade CSS: https://jigsaw.w3.org/css-validator/#validate_by_input
     -->
-  
+  <script src="src/main.js"></script>
 </body>
 
 </html>
