@@ -1,42 +1,51 @@
-import './style/style.scss';
+const currentPositionFailure = document.querySelector('.currentPositionFailure')
+const searchLocation = document.querySelector('.findMyLocation')
+const searchCity = document.querySelector('.searchCity')
+const searchInput = document.querySelector('.searchInput')
+const cityInfo = document.querySelector('.cityInfo')
+const temperatureInfo = document.querySelector('.temperatureInfo')
+const apikey = "84a9e3473035153f383f2976491a4b4b"
 
-// All kod härifrån och ner är bara ett exempel för att komma igång
+//Weather by location
+function getMyLocation() {
+  navigator.geolocation.getCurrentPosition(success, error);
+  
+  function success(position) {
+    const latitude = position.coords.latitude
+    const longitude = position.coords.longitude
 
-// I denna utils-fil har vi lagrat funktioner som ofta används, t.ex. en "blanda array"-funktion
-import { shuffle } from './utils';
+    fetch("https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&units=metric&appid=" + apikey
+    ).then((response) => response.json())
+    .then((data) => this.weatherInfo(data));
 
-// I denna fil har vi lagrat vår "data", i detta exempel en ofullständig kortlek
-import exampleCardDeck from './exampleArray';
+    currentPositionFailure.style.display = "none"
+  }
 
-// Blanda kortleken
-const myShuffledCardDeck = shuffle(exampleCardDeck);
-
-console.log(import.meta.env.VITE_MAPS_API_KEY);
-
-
-/**
- * Vänder upp/ner på det klickade kortet genom att toggla en CSS-klass.
- * @param e - Det HTML-element som har klickats på
- * @return {void}
- */
-function flipCard(e) {
-  if (e.currentTarget !== undefined) {
-    this.classList.toggle('visible');
+  function error() {
+    currentPositionFailure.innerHTML = "Your location could not be found." + "<br>" + "Please try again and allow us to find your" + "<br>" + "location, or use the search-bar below!"
   }
 }
 
-// Printa kortleken
-let cardString = '';
-myShuffledCardDeck.forEach((card) => {
-  cardString += `
-    <button class="card">
-      <span class="front">♠</span>
-      <span class="back">${card}</span>
-    </button>`;
-});
+searchLocation.addEventListener('click', getMyLocation)
 
-document.querySelector('#app').innerHTML = cardString;
+//Weather by search
 
-document.querySelectorAll('.card').forEach((card) => {
-  card.addEventListener('click', flipCard);
-});
+//Display weather
+function weatherInfo(data) {
+  const {name} = data;
+  cityInfo.innerHTML = name + " <i class='fa-solid fa-location-dot fa-2xs'></i>"
+
+  JSON.stringify(localStorage.setItem("currentCity", name))
+
+  const {temp} = data.main
+  temperatureInfo.innerHTML = temp + "°C | " + Math.round(((temp * 1.8)+32)*100)/100 + "°F"
+}
+
+//Remember latest location on reload
+if (window.location.reload) {
+  const currentCity = localStorage.getItem("currentCity")
+
+  fetch("https://api.openweathermap.org/data/2.5/weather?q=" + currentCity + "&units=metric&appid=" + apikey
+  ).then((response) => response.json())
+  .then((data) => this.weatherInfo(data));
+}

@@ -23,6 +23,7 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    linebreak: ['error', 'windows'],
     curly: ['error', 'all'],
     'require-jsdoc': 'off',
     indent: ['error', 2, { SwitchCase: 1 }],
