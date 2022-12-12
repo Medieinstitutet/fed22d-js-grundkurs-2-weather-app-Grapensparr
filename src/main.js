@@ -29,6 +29,15 @@ function getMyLocation() {
 searchLocation.addEventListener('click', getMyLocation)
 
 //Weather by search
+function searchWeatherbyCity() {
+  const city = searchInput.value
+
+  fetch("https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric&appid=" + apikey
+  ).then((response) => response.json())
+  .then((data) => weatherInfo(data));
+}
+
+searchCity.addEventListener('click', searchWeatherbyCity)
 
 //Display weather
 function weatherInfo(data) {
@@ -43,9 +52,18 @@ function weatherInfo(data) {
 
 //Remember latest location on reload
 if (window.location.reload) {
+  if (localStorage.length > 0){
   const currentCity = localStorage.getItem("currentCity")
 
   fetch("https://api.openweathermap.org/data/2.5/weather?q=" + currentCity + "&units=metric&appid=" + apikey
   ).then((response) => response.json())
   .then((data) => this.weatherInfo(data));
+  }
+  else {
+    const currentCity = 'Stockholm'
+
+    fetch("https://api.openweathermap.org/data/2.5/weather?q=" + currentCity + "&units=metric&appid=" + apikey
+    ).then((response) => response.json())
+    .then((data) => this.weatherInfo(data));
+  }
 }
