@@ -14,7 +14,7 @@ const apikey = "84a9e3473035153f383f2976491a4b4b"
 
 //Weather by location
 function getMyLocation() {
-  navigator.geolocation.getCurrentPosition(success, error);
+  navigator.geolocation.getCurrentPosition(success, error)
   
   function success(position) {
     const latitude = position.coords.latitude
@@ -22,7 +22,7 @@ function getMyLocation() {
 
     fetch("https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&units=metric&appid=" + apikey
     ).then((response) => response.json())
-    .then((data) => this.weatherInfo(data));
+    .then((data) => this.weatherInfo(data))
 
     currentPositionFailure.style.display = "none"
   }
@@ -38,10 +38,18 @@ searchLocation.addEventListener('click', getMyLocation)
 function searchWeatherbyCity() {
   const city = searchInput.value
 
+  searchInput.value = ''
+
   fetch("https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric&appid=" + apikey
   ).then((response) => response.json())
-  .then((data) => weatherInfo(data));
+  .then((data) => weatherInfo(data))
 }
+
+searchInput.addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    searchCity.click()
+  }
+})
 
 searchCity.addEventListener('click', searchWeatherbyCity)
 
@@ -96,13 +104,13 @@ if (window.location.reload) {
 
   fetch("https://api.openweathermap.org/data/2.5/weather?q=" + currentCity + "&units=metric&appid=" + apikey
   ).then((response) => response.json())
-  .then((data) => this.weatherInfo(data));
+  .then((data) => this.weatherInfo(data))
   }
   else {
     const currentCity = 'Stockholm'
 
     fetch("https://api.openweathermap.org/data/2.5/weather?q=" + currentCity + "&units=metric&appid=" + apikey
     ).then((response) => response.json())
-    .then((data) => this.weatherInfo(data));
+    .then((data) => this.weatherInfo(data))
   }
 }
