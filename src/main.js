@@ -5,12 +5,16 @@ const searchInput = document.querySelector('.searchInput')
 const cityInfo = document.querySelector('.cityInfo')
 const temperatureInfo = document.querySelector('.temperatureInfo')
 const feelsLikeInfo = document.querySelector('.feelsLike')
-const minMaxTemp = document.querySelector('.minMaxTemp')
+const descriptionInfo = document.querySelector('.descriptionInfo')
 const humidityInfo = document.querySelector('.humidity')
 const windSpeedInfo = document.querySelector('.windSpeed')
 const sunriseInfo = document.querySelector('.sunrise')
 const sunsetInfo = document.querySelector('.sunset')
 const apikey = "84a9e3473035153f383f2976491a4b4b"
+
+//TO DO
+//Add button to select C / F
+//Add 5 day forcast
 
 //Weather by location
 function getMyLocation() {
@@ -66,15 +70,17 @@ function weatherInfo(data) {
   const {feels_like} = data.main
   feelsLikeInfo.innerHTML = "Feels like " + feels_like + "°C"
 
-  const {temp_min} = data.main
-  const {temp_max} = data.main
-  minMaxTemp.innerHTML = "Min & max temp: " + temp_min + "°C | " + temp_max + "°C"
+  const {description} = data.weather[0]
+
+  const {icon} = data.weather[0]
+  const iconSrc = "http://openweathermap.org/img/w/" + icon + ".png"
+  descriptionInfo.innerHTML = "<img src = " + iconSrc + " alt='Icon depicting current weather.'>" + description.charAt(0).toUpperCase() + description.slice(1);
 
   const {humidity} = data.main
-  humidityInfo.innerHTML = "Humidity: "+ humidity + "%"
+  humidityInfo.innerHTML = '<i class="fa-solid fa-droplet"></i>'+ "<br>" + humidity + "%"
 
   const {speed} = data.wind
-  windSpeedInfo.innerHTML = "Wind speed: " + Math.round((speed / 3.6)*100)/100 + " m/s"
+  windSpeedInfo.innerHTML = '<i class="fa-solid fa-wind"></i>' + "<br>" + speed + " km/h"
 
   const {sunrise} = data.sys
   const {sunset} = data.sys
@@ -86,7 +92,7 @@ function weatherInfo(data) {
   var minutes = "0" + date.getMinutes()
   var formattedTimeSunrise = "0" + hours + ':' + minutes.substr(-2)
 
-  sunriseInfo.innerHTML = "Sunrise: " + formattedTimeSunrise
+  sunriseInfo.innerHTML = '<i class="fa-solid fa-sun"></i>' + '<i class="fa-solid fa-sort-up"></i>' + "<br>" + formattedTimeSunrise
 
   let unix_timestamp_sunset = (sunset + timezone - 3600)
   var date = new Date(unix_timestamp_sunset * 1000);
@@ -94,7 +100,7 @@ function weatherInfo(data) {
   var minutes = "0" + date.getMinutes();
   var formattedTimeSunset = hours + ':' + minutes.substr(-2)
 
-  sunsetInfo.innerHTML = "Sunset: " + formattedTimeSunset
+  sunsetInfo.innerHTML = '<i class="fa-solid fa-sun"></i>' + '<i class="fa-solid fa-sort-down"></i>' + "<br>" + formattedTimeSunset
 }
 
 //Remember latest location on reload

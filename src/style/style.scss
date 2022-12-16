@@ -33,3 +33,14 @@ h1, h2, p {
   margin-bottom: 10px;
   color: darkorange;
 }
+
+.descriptionInfo {
+  display: flex;
+  align-items: center;
+}
+
+.specifics {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+}
