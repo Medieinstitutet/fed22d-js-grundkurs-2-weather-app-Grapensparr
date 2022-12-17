@@ -10,7 +10,9 @@ const humidityInfo = document.querySelector('.humidity')
 const windSpeedInfo = document.querySelector('.windSpeed')
 const sunriseInfo = document.querySelector('.sunrise')
 const sunsetInfo = document.querySelector('.sunset')
+const backgroundImage = document.querySelector("body")
 const apikey = "84a9e3473035153f383f2976491a4b4b"
+const date = new Date()
 
 //TO DO
 //Add button to select C / F
@@ -101,6 +103,28 @@ function weatherInfo(data) {
   var formattedTimeSunset = hours + ':' + minutes.substr(-2)
 
   sunsetInfo.innerHTML = '<i class="fa-solid fa-sun"></i>' + '<i class="fa-solid fa-sort-down"></i>' + "<br>" + formattedTimeSunset
+
+  if (temp > 30) {
+    backgroundImage.style.backgroundImage = "url('./img/thirtyPlus.jpg')"
+  } 
+  if (temp > 20 && temp <= 30) {
+    backgroundImage.style.backgroundImage = "url('./img/twentyPlus.jpg')"
+  } 
+  if (temp > 10 && temp <= 20) {
+    backgroundImage.style.backgroundImage = "url('./img/tenPlus.jpg')"
+  } 
+  if (temp > 0 && temp <= 10) {
+    backgroundImage.style.backgroundImage = "url('./img/plusDegrees.jpg')"
+  } 
+  if (temp < 0 && temp >= -10) {
+    backgroundImage.style.backgroundImage = "url('./img/minusDegrees.jpg')"
+  }
+  if (temp < -10 && temp >= -20) {
+    backgroundImage.style.backgroundImage = "url('./img/tenMinus.jpg')"
+  }
+  if (temp < -20) {
+    backgroundImage.style.backgroundImage = "url('./img/twentyMinus.jpg')"
+  }
 }
 
 //Remember latest location on reload
