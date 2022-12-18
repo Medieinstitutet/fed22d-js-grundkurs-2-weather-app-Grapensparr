@@ -14,21 +14,35 @@ body {
 }
 
 .app {
-  background-color: rgba(22, 11, 11, 0.5);
-  border: solid 1px white;
+  background-color: rgba(22, 11, 11, 0.65);
+  border: solid 3px black;
   border-radius: 20px;
   padding: 3rem;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
-.findMyLocation {
+.findMyLocation, .forcast24h, .currentWeatherButton {
   width: 100%;
   margin-bottom: 10px;
 }
 
 h1, h2, p {
   color: white;
+}
+
+.or {
+  text-align: center;
+}
+
+.cityInfo {
+  font-size: 1.8rem;
+}
+
+.temperatureInfo{
+  font-size: 2.2rem;
 }
 
 .currentPositionFailure {
@@ -46,4 +60,9 @@ h1, h2, p {
   display: flex;
   justify-content: space-evenly;
   text-align: center;
+}
+
+.forcastTitle {
+  text-align: center;
+  margin: 0 40px;
 }

@@ -10,137 +10,186 @@ const humidityInfo = document.querySelector('.humidity')
 const windSpeedInfo = document.querySelector('.windSpeed')
 const sunriseInfo = document.querySelector('.sunrise')
 const sunsetInfo = document.querySelector('.sunset')
-const backgroundImage = document.querySelector("body")
-const apikey = "84a9e3473035153f383f2976491a4b4b"
-const date = new Date()
+const forcast24h = document.querySelector('.forcast24h')
+const currentWeatherButton = document.querySelector('.currentWeatherButton')
+const forcast = document.querySelector('.forcast')
+const backgroundImage = document.querySelector('body')
+const forcastWeather = document.querySelector('.forcastWeather')
+const currentWeather = document.querySelector('.currentWeather')
+const apikey = '84a9e3473035153f383f2976491a4b4b'
 
-//TO DO
-//Add button to select C / F
-//Add 5 day forcast
+/* require("dotenv").config();
 
-//Weather by location
-function getMyLocation() {
+console.log(process.env.apikey); */
+
+// TO DO
+// Add button to select C / F
+// Add 5 day forcast
+
+currentWeather.style.display = 'block'
+forcastWeather.style.display = 'none'
+currentWeatherButton.style.display = 'none'
+
+// Weather by location
+searchLocation.addEventListener('click', function askForPermission () {
   navigator.geolocation.getCurrentPosition(success, error)
-  
-  function success(position) {
-    const latitude = position.coords.latitude
-    const longitude = position.coords.longitude
+})
 
-    fetch("https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&units=metric&appid=" + apikey
-    ).then((response) => response.json())
+function success (position) {
+  const latitude = position.coords.latitude
+  const longitude = position.coords.longitude
+
+  fetch('https://api.openweathermap.org/data/2.5/weather?lat=' + latitude + '&lon=' + longitude + '&units=metric&appid=' + apikey)
+    .then((response) => response.json())
     .then((data) => this.weatherInfo(data))
 
-    currentPositionFailure.style.display = "none"
-  }
-
-  function error() {
-    currentPositionFailure.innerHTML = "Your location could not be found." + "<br>" + "Please try again and allow us to find your" + "<br>" + "location, or use the search-bar below!"
-  }
+  currentPositionFailure.style.display = 'none'
 }
 
-searchLocation.addEventListener('click', getMyLocation)
+function error () {
+  currentPositionFailure.innerHTML = 'Your location could not be found.' + '<br>' + 'Please try again and allow us to find your' + '<br>' + 'location, or use the search-bar below!'
+}
 
-//Weather by search
-function searchWeatherbyCity() {
+// Weather by search
+function searchWeatherbyCity () {
   const city = searchInput.value
 
   searchInput.value = ''
 
-  fetch("https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=metric&appid=" + apikey
-  ).then((response) => response.json())
-  .then((data) => weatherInfo(data))
+  fetch('https://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=metric&appid=' + apikey)
+    .then((response) => response.json())
+    .then((data) => weatherInfo(data))
+
+  fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + city + '&units=metric&appid=' + apikey)
+    .then((response) => response.json())
+    .then((data2) => weatherInfoForcast(data2))
 }
 
-searchInput.addEventListener("keypress", function(event) {
-  if (event.key === "Enter") {
+searchInput.addEventListener('keypress', function keypress (event) {
+  if (event.key === 'Enter') {
     searchCity.click()
   }
 })
 
 searchCity.addEventListener('click', searchWeatherbyCity)
 
-//Display weather
-function weatherInfo(data) {
-  const {name} = data;
-  cityInfo.innerHTML = name + " <i class='fa-solid fa-location-dot fa-2xs'></i>"
+// Display weather
+function weatherInfo (data) {
+  const { name } = data
+  cityInfo.innerHTML = name + ' <i class="fa-solid fa-location-dot fa-2xs"></i>'
 
-  JSON.stringify(localStorage.setItem("currentCity", name))
+  JSON.stringify(localStorage.setItem('currentCity', name))
 
-  const {temp} = data.main
-  temperatureInfo.innerHTML = temp + "°C | " + Math.round(((temp * 1.8)+32)*100)/100 + "°F"
-  
-  const {feels_like} = data.main
-  feelsLikeInfo.innerHTML = "Feels like " + feels_like + "°C"
+  const { temp } = data.main
+  temperatureInfo.innerHTML = temp + '°C | ' + Math.round(((temp * 1.8) + 32) * 100) / 100 + '°F'
 
-  const {description} = data.weather[0]
+  const { feels_like } = data.main
+  feelsLikeInfo.innerHTML = 'Feels like ' + feels_like + '°C'
 
-  const {icon} = data.weather[0]
-  const iconSrc = "http://openweathermap.org/img/w/" + icon + ".png"
-  descriptionInfo.innerHTML = "<img src = " + iconSrc + " alt='Icon depicting current weather.'>" + description.charAt(0).toUpperCase() + description.slice(1);
+  const { description } = data.weather[0]
 
-  const {humidity} = data.main
-  humidityInfo.innerHTML = '<i class="fa-solid fa-droplet"></i>'+ "<br>" + humidity + "%"
+  const { icon } = data.weather[0]
+  const iconSrc = 'http://openweathermap.org/img/w/' + icon + '.png'
+  descriptionInfo.innerHTML = '<img src = ' + iconSrc + ' alt="Icon depicting current weather.">' + description.charAt(0).toUpperCase() + description.slice(1)
 
-  const {speed} = data.wind
-  windSpeedInfo.innerHTML = '<i class="fa-solid fa-wind"></i>' + "<br>" + speed + " km/h"
+  const { humidity } = data.main
+  humidityInfo.innerHTML = '<i class="fa-solid fa-droplet"></i>' + '<br>' + humidity + '%'
 
-  const {sunrise} = data.sys
-  const {sunset} = data.sys
-  const {timezone} = data
+  const { speed } = data.wind
+  windSpeedInfo.innerHTML = '<i class="fa-solid fa-wind"></i>' + '<br>' + speed + ' km/h'
 
-  let unix_timestamp_sunrise = (sunrise + timezone - 3600)
-  var date = new Date(unix_timestamp_sunrise * 1000)
-  var hours = date.getHours()
-  var minutes = "0" + date.getMinutes()
-  var formattedTimeSunrise = "0" + hours + ':' + minutes.substr(-2)
+  const { sunrise } = data.sys
+  const { sunset } = data.sys
+  const { timezone } = data
 
-  sunriseInfo.innerHTML = '<i class="fa-solid fa-sun"></i>' + '<i class="fa-solid fa-sort-up"></i>' + "<br>" + formattedTimeSunrise
+  const unix_timestamp_sunrise = (sunrise + timezone - 3600)
+  const dateSunrise = new Date(unix_timestamp_sunrise * 1000)
+  const hoursSunrise = dateSunrise.getHours()
+  const minutesSunrise = '0' + dateSunrise.getMinutes()
+  const formattedTimeSunrise = '0' + hoursSunrise + ':' + minutesSunrise.substr(-2)
 
-  let unix_timestamp_sunset = (sunset + timezone - 3600)
-  var date = new Date(unix_timestamp_sunset * 1000);
-  var hours = date.getHours();
-  var minutes = "0" + date.getMinutes();
-  var formattedTimeSunset = hours + ':' + minutes.substr(-2)
+  sunriseInfo.innerHTML = '<i class="fa-solid fa-sun"></i>' + '<i class="fa-solid fa-sort-up"></i>' + '<br>' + formattedTimeSunrise
 
-  sunsetInfo.innerHTML = '<i class="fa-solid fa-sun"></i>' + '<i class="fa-solid fa-sort-down"></i>' + "<br>" + formattedTimeSunset
+  const unix_timestamp_sunset = (sunset + timezone - 3600)
+  const dateSunset = new Date(unix_timestamp_sunset * 1000)
+  const hoursSunset = dateSunset.getHours()
+  const minutesSunset = '0' + dateSunset.getMinutes()
+  const formattedTimeSunset = hoursSunset + ':' + minutesSunset.substr(-2)
 
-  if (temp > 30) {
-    backgroundImage.style.backgroundImage = "url('./img/thirtyPlus.jpg')"
-  } 
-  if (temp > 20 && temp <= 30) {
-    backgroundImage.style.backgroundImage = "url('./img/twentyPlus.jpg')"
-  } 
-  if (temp > 10 && temp <= 20) {
-    backgroundImage.style.backgroundImage = "url('./img/tenPlus.jpg')"
-  } 
-  if (temp > 0 && temp <= 10) {
-    backgroundImage.style.backgroundImage = "url('./img/plusDegrees.jpg')"
-  } 
-  if (temp < 0 && temp >= -10) {
-    backgroundImage.style.backgroundImage = "url('./img/minusDegrees.jpg')"
-  }
-  if (temp < -10 && temp >= -20) {
-    backgroundImage.style.backgroundImage = "url('./img/tenMinus.jpg')"
-  }
+  sunsetInfo.innerHTML = '<i class="fa-solid fa-sun"></i>' + '<i class="fa-solid fa-sort-down"></i>' + '<br>' + formattedTimeSunset
+
   if (temp < -20) {
-    backgroundImage.style.backgroundImage = "url('./img/twentyMinus.jpg')"
+    backgroundImage.style.backgroundImage = 'url("./img/twentyMinus.jpg")'
+  } else if (temp < -10) {
+    backgroundImage.style.backgroundImage = 'url("./img/tenMinus.jpg")'
+  } else if (temp < 0) {
+    backgroundImage.style.backgroundImage = 'url("./img/minusDegrees.jpg")'
+  } else if (temp < 10) {
+    backgroundImage.style.backgroundImage = 'url("./img/plusDegrees.jpg")'
+  } else if (temp < 20) {
+    backgroundImage.style.backgroundImage = 'url("./img/tenPlus.jpg")'
+  } else if (temp < 30) {
+    backgroundImage.style.backgroundImage = 'url("./img/twentyPlus.jpg")'
+  } else if (temp > 30) {
+    backgroundImage.style.backgroundImage = 'url("./img/thirtyPlus.jpg")'
   }
 }
 
-//Remember latest location on reload
-if (window.location.reload) {
-  if (localStorage.length > 0){
-  const currentCity = localStorage.getItem("currentCity")
+function weatherInfoForcast (data2) {
+  forcast.innerHTML = ''
+  for (i = 0; i < 9; i++) {
+    const { temp } = data2.list[i].main
+    const { description } = data2.list[i].weather[0]
+    const { humidity } = data2.list[i].main
+    const { speed } = data2.list[i].wind
 
-  fetch("https://api.openweathermap.org/data/2.5/weather?q=" + currentCity + "&units=metric&appid=" + apikey
-  ).then((response) => response.json())
-  .then((data) => this.weatherInfo(data))
+    const {dt_txt} = data2.list[i]
+    const day = dt_txt.substring(0, 10)
+    const time = dt_txt.substring(11, 16)
+
+    const forcastTime = day + ' at ' + time + ': '
+    forcast.innerHTML += forcastTime + '<br>' +
+      '<i class="fa-solid fa-temperature-half"></i> ' + temp + '°C' + ' (' + description + ')' + '<br>' +
+      '<i class="fa-solid fa-droplet"></i> ' + humidity + '%' + '<br>' +
+      '<i class="fa-solid fa-wind"></i> ' + speed + ' km/h' + '<br><br>'
   }
-  else {
+}
+
+forcast24h.addEventListener('click', function displayForcast () {
+  currentWeather.style.display = 'none'
+  forcastWeather.style.display = 'block'
+  forcast24h.style.display = 'none'
+  currentWeatherButton.style.display = 'block'
+})
+
+currentWeatherButton.addEventListener('click', function displayCurrentWeather () {
+  currentWeather.style.display = 'block'
+  forcastWeather.style.display = 'none'
+  forcast24h.style.display = 'block'
+  currentWeatherButton.style.display = 'none'
+})
+
+// Remember latest location on reload
+if (window.location.reload) {
+  if (localStorage.length > 0) {
+    const currentCity = localStorage.getItem('currentCity')
+
+    fetch('https://api.openweathermap.org/data/2.5/weather?q=' + currentCity + '&units=metric&appid=' + apikey)
+      .then((response) => response.json())
+      .then((data) => this.weatherInfo(data))
+
+    fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + currentCity + '&units=metric&appid=' + apikey)
+      .then((response) => response.json())
+      .then((data2) => weatherInfoForcast(data2))
+  } else {
     const currentCity = 'Stockholm'
 
-    fetch("https://api.openweathermap.org/data/2.5/weather?q=" + currentCity + "&units=metric&appid=" + apikey
-    ).then((response) => response.json())
-    .then((data) => this.weatherInfo(data))
+    fetch('https://api.openweathermap.org/data/2.5/weather?q=' + currentCity + '&units=metric&appid=' + apikey)
+      .then((response) => response.json())
+      .then((data) => this.weatherInfo(data))
+
+    fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + currentCity + '&units=metric&appid=' + apikey)
+      .then((response) => response.json())
+      .then((data2) => weatherInfoForcast(data2))
   }
 }
