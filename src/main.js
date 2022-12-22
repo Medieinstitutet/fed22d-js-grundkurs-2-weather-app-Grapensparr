@@ -17,6 +17,11 @@ const backgroundImage = document.querySelector('body')
 const forcastWeather = document.querySelector('.forcastWeather')
 const currentWeather = document.querySelector('.currentWeather')
 const apikey = '84a9e3473035153f383f2976491a4b4b'
+const addressPart1 = 'https://api.openweathermap.org/data/2.5/weather?q='
+const addressPart2 = '&units=metric&appid='
+const forcastAddress = 'https://api.openweathermap.org/data/2.5/forecast?q='
+const lat = 'https://api.openweathermap.org/data/2.5/weather?lat='
+const long = '&lon='
 
 /* require("dotenv").config();
 
@@ -39,7 +44,7 @@ function success (position) {
   const latitude = position.coords.latitude
   const longitude = position.coords.longitude
 
-  fetch('https://api.openweathermap.org/data/2.5/weather?lat=' + latitude + '&lon=' + longitude + '&units=metric&appid=' + apikey)
+  fetch(lat + latitude + long + longitude + addressPart2 + apikey)
     .then((response) => response.json())
     .then((data) => this.weatherInfo(data))
 
@@ -56,11 +61,11 @@ function searchWeatherbyCity () {
 
   searchInput.value = ''
 
-  fetch('https://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=metric&appid=' + apikey)
+  fetch(addressPart1 + city + addressPart2 + apikey)
     .then((response) => response.json())
     .then((data) => weatherInfo(data))
 
-  fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + city + '&units=metric&appid=' + apikey)
+  fetch(forcastAddress + city + addressPart2 + apikey)
     .then((response) => response.json())
     .then((data2) => weatherInfoForcast(data2))
 }
@@ -174,21 +179,21 @@ if (window.location.reload) {
   if (localStorage.length > 0) {
     const currentCity = localStorage.getItem('currentCity')
 
-    fetch('https://api.openweathermap.org/data/2.5/weather?q=' + currentCity + '&units=metric&appid=' + apikey)
+    fetch(addressPart1 + currentCity + addressPart2 + apikey)
       .then((response) => response.json())
       .then((data) => this.weatherInfo(data))
 
-    fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + currentCity + '&units=metric&appid=' + apikey)
+    fetch(forcastAddress + currentCity + addressPart2 + apikey)
       .then((response) => response.json())
       .then((data2) => weatherInfoForcast(data2))
   } else {
     const currentCity = 'Stockholm'
 
-    fetch('https://api.openweathermap.org/data/2.5/weather?q=' + currentCity + '&units=metric&appid=' + apikey)
+    fetch(addressPart1 + currentCity + addressPart2 + apikey)
       .then((response) => response.json())
       .then((data) => this.weatherInfo(data))
 
-    fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + currentCity + '&units=metric&appid=' + apikey)
+    fetch(forcastAddress + currentCity + addressPart2 + apikey)
       .then((response) => response.json())
       .then((data2) => weatherInfoForcast(data2))
   }
