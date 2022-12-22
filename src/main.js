@@ -83,10 +83,10 @@ function weatherInfo (data) {
   const { name } = data;
   cityInfo.innerHTML = name + ' <i class="fa-solid fa-location-dot fa-2xs"></i>';
 
-  JSON.stringify(localStorage.setItem('currentCity', name));
+  localStorage.setItem('currentCity', name);
 
   const { temp } = data.main;
-  temperatureInfo.innerHTML = temp + '°C | ' + Math.round(((temp * 1.8) + 32) * 100) / 100 + '°F';
+  temperatureInfo.innerHTML = temp + '°C';
 
   const { feels_like } = data.main;
   feelsLikeInfo.innerHTML = 'Feels like ' + feels_like + '°C';
