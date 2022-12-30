@@ -26,7 +26,17 @@ const long = '&lon=';
 forcastWeather.classList.add('hidden');
 currentWeatherButton.classList.add('hidden');
 
-let city = "Stockholm"
+window.onload = function firstWeather() {
+  const city = 'Stockholm';
+
+  fetch(addressPart1 + city + addressPart2 + apikey)
+    .then((response) => response.json())
+    .then((data) => weatherInfo(data));
+
+  fetch(forcastAddress + city + addressPart2 + apikey)
+    .then((response) => response.json())
+    .then((data2) => weatherInfoForcast(data2));
+};
 
 // Weather by location
 searchLocation.addEventListener('click', function askForPermission () {
