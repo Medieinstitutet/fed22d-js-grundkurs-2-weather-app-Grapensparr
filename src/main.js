@@ -63,6 +63,7 @@ function searchWeatherbyCity () {
   const city = searchInput.value;
 
   searchInput.value = '';
+  currentPositionFailure.style.display = 'none';
 
   fetch(addressPart1 + city + addressPart2 + apikey)
     .then((response) => response.json())
