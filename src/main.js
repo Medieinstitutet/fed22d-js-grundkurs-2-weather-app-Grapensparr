@@ -30,7 +30,7 @@ currentWeatherButton.classList.add('hidden');
 // Weather by location
 searchLocation.addEventListener('click', function askForPermission () {
   navigator.geolocation.getCurrentPosition(success, error);
-})
+});
 
 function success (position) {
   const latitude = position.coords.latitude;
@@ -41,11 +41,11 @@ function success (position) {
     .then((data) => this.weatherInfo(data));
 
   currentPositionFailure.style.display = 'none';
-}
+};
 
 function error () {
   currentPositionFailure.innerHTML = 'Your location could not be found.' + '<br>' + 'Please clear your history and allow us to find' + '<br>' + 'your location, or use the search-bar below!';
-}
+};
 
 // Weather by search
 function searchWeatherbyCity () {
@@ -61,13 +61,13 @@ function searchWeatherbyCity () {
   fetch(forcastAddress + city + addressPart2 + apikey)
     .then((response) => response.json())
     .then((data2) => weatherInfoForcast(data2));
-}
+};
 
 searchInput.addEventListener('keypress', function keypress (event) {
   if (event.key === 'Enter') {
     searchCity.click();
-  }
-})
+  };
+});
 
 searchCity.addEventListener('click', searchWeatherbyCity);
 
@@ -132,8 +132,8 @@ function weatherInfo (data) {
     backgroundImage.style.backgroundImage = 'url("./img/twentyPlus.jpg")';
   } else if (temp > 30) {
     backgroundImage.style.backgroundImage = 'url("./img/thirtyPlus.jpg")';
-  }
-}
+  };
+};
 
 // Display forcast
 function weatherInfoForcast (data2) {
@@ -153,22 +153,22 @@ function weatherInfoForcast (data2) {
       '<p><i class="fa-solid fa-temperature-half"></i> ' + temp + '°C' + ' (' + description + ')' + '<br>' +
       '<i class="fa-solid fa-droplet"></i> ' + humidity + '%' + '<br>' +
       '<i class="fa-solid fa-wind"></i> ' + speed + ' km/h' + '<p><br><br>';
-  }
-}
+  };
+};
 
 forcast24h.addEventListener('click', function displayForcast () {
   currentWeather.classList.add('hidden');
   forcastWeather.classList.remove('hidden');
   forcast24h.classList.add('hidden');
   currentWeatherButton.classList.remove('hidden');
-})
+});
 
 currentWeatherButton.addEventListener('click', function displayCurrentWeather () {
   currentWeather.classList.remove('hidden');
   forcastWeather.classList.add('hidden');
   forcast24h.classList.remove('hidden');
   currentWeatherButton.classList.add('hidden');
-})
+});
 
 // Remember latest location on reload & set initial location on first page load
 window.onload = function reloadWeather() {
@@ -192,5 +192,5 @@ window.onload = function reloadWeather() {
     fetch(forcastAddress + currentCity + addressPart2 + apikey)
       .then((response) => response.json())
       .then((data2) => weatherInfoForcast(data2));
-  }
-}
+  };
+};
