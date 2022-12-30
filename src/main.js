@@ -23,6 +23,7 @@ const forcastAddress = 'https://api.openweathermap.org/data/2.5/forecast?q=';
 const lat = 'https://api.openweathermap.org/data/2.5/weather?lat=';
 const long = '&lon=';
 
+// Hide forcast info in current weather mode
 forcastWeather.classList.add('hidden');
 currentWeatherButton.classList.add('hidden');
 
@@ -114,6 +115,7 @@ function weatherInfo (data) {
 
   sunsetInfo.innerHTML = '<i class="fa-solid fa-sun"></i>' + '<i class="fa-solid fa-sort-down"></i>' + '<br>' + formattedTimeSunset;
 
+  // Change of background
   if (temp < -20) {
     backgroundImage.style.backgroundImage = 'url("./img/twentyMinus.jpg")';
   } else if (temp < -10) {
@@ -133,6 +135,7 @@ function weatherInfo (data) {
   }
 }
 
+// Display forcast
 function weatherInfoForcast (data2) {
   forcast.innerHTML = '';
   for (i = 0; i < 9; i++) {
@@ -167,7 +170,7 @@ currentWeatherButton.addEventListener('click', function displayCurrentWeather ()
   currentWeatherButton.classList.add('hidden');
 })
 
-// Remember latest location on reload
+// Remember latest location on reload & set initial location on first page load
 window.onload = function reloadWeather() {
   if (localStorage.length > 0) {
     const currentCity = localStorage.getItem('currentCity');
