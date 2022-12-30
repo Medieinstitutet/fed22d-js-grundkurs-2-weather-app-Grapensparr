@@ -121,6 +121,8 @@ function weatherInfo (data) {
     backgroundImage.style.backgroundImage = 'url("./img/tenMinus.jpg")';
   } else if (temp < 0) {
     backgroundImage.style.backgroundImage = 'url("./img/minusDegrees.jpg")';
+  } else if (temp < 5) {
+    backgroundImage.style.backgroundImage = 'url("./img/zerotoFive.jpg")';
   } else if (temp < 10) {
     backgroundImage.style.backgroundImage = 'url("./img/plusDegrees.jpg")';
   } else if (temp < 20) {
@@ -145,10 +147,10 @@ function weatherInfoForcast (data2) {
     const time = dt_txt.substring(11, 16);
 
     const forcastTime = day + ' at ' + time + ': ';
-    forcast.innerHTML += forcastTime + '<br>' +
-      '<i class="fa-solid fa-temperature-half"></i> ' + temp + '°C' + ' (' + description + ')' + '<br>' +
+    forcast.innerHTML += '<h3>' + forcastTime + '</h3>' +
+      '<p><i class="fa-solid fa-temperature-half"></i> ' + temp + '°C' + ' (' + description + ')' + '<br>' +
       '<i class="fa-solid fa-droplet"></i> ' + humidity + '%' + '<br>' +
-      '<i class="fa-solid fa-wind"></i> ' + speed + ' km/h' + '<br><br>';
+      '<i class="fa-solid fa-wind"></i> ' + speed + ' km/h' + '<p><br><br>';
   }
 }
 

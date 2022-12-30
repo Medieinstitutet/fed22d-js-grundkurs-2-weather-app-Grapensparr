@@ -85,6 +85,15 @@ body {
   justify-content: center;
   align-items: center;
 }
+body h1, body h2, body p {
+  color: white;
+}
+body h3 {
+  font-size: 1.2rem;
+}
+body button {
+  cursor: pointer;
+}
 
 .app {
   background-color: rgba(22, 11, 11, 0.65);
@@ -97,46 +106,41 @@ body {
   margin-bottom: 50px;
 }
 
-.findMyLocation, .forcast24h, .currentWeatherButton, .city-search {
+.currentWeather .findMyLocation, .currentWeather .city-search {
   text-align: center;
   width: 100%;
   margin-bottom: 10px;
 }
-
-h1, h2, p {
-  color: white;
-}
-
-.or {
-  text-align: center;
-}
-
-.cityInfo {
-  font-size: 1.8rem;
-}
-
-.temperatureInfo {
-  font-size: 2.2rem;
-}
-
-.currentPositionFailure {
+.currentWeather .currentPositionFailure {
   width: 100%;
   margin-bottom: 10px;
   color: darkorange;
 }
-
-.descriptionInfo {
+.currentWeather .or {
+  text-align: center;
+}
+.currentWeather .cityInfo {
+  font-size: 1.8rem;
+}
+.currentWeather .temperatureInfo {
+  font-size: 2.2rem;
+}
+.currentWeather .descriptionInfo {
   display: flex;
   align-items: center;
 }
-
-.specifics {
+.currentWeather .specifics {
   display: flex;
   justify-content: space-evenly;
   text-align: center;
 }
 
-.forcastTitle {
+.forcastSection .forcast24h, .forcastSection .currentWeatherButton {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.forcastSection .forcastTitle {
   text-align: center;
   margin: 0 40px;
 }
