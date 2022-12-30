@@ -41,7 +41,7 @@ function success (position) {
     .then((response) => response.json())
     .then((data) => this.weatherInfo(data));
 
-  currentPositionFailure.style.display = none;
+  currentPositionFailure.style.display = 'none';
 }
 
 function error () {
