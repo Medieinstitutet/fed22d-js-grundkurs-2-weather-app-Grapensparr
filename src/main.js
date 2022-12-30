@@ -45,7 +45,7 @@ function success (position) {
 }
 
 function error () {
-  currentPositionFailure.innerHTML = 'Your location could not be found.' + '<br>' + 'Please try again and allow us to find your' + '<br>' + 'location, or use the search-bar below!';
+  currentPositionFailure.innerHTML = 'Your location could not be found.' + '<br>' + 'Please clear your history and allow us to find your' + '<br>' + 'location, or use the search-bar below!';
 }
 
 // Weather by search
