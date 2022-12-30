@@ -23,8 +23,10 @@ const forcastAddress = 'https://api.openweathermap.org/data/2.5/forecast?q=';
 const lat = 'https://api.openweathermap.org/data/2.5/weather?lat=';
 const long = '&lon=';
 
-forcastWeather.classList.add("hidden");
-currentWeatherButton.classList.add("hidden");
+forcastWeather.classList.add('hidden');
+currentWeatherButton.classList.add('hidden');
+
+let city = "Stockholm"
 
 // Weather by location
 searchLocation.addEventListener('click', function askForPermission () {
@@ -151,17 +153,17 @@ function weatherInfoForcast (data2) {
 }
 
 forcast24h.addEventListener('click', function displayForcast () {
-  currentWeather.classList.add("hidden")
-  forcastWeather.classList.remove("hidden")
-  forcast24h.classList.add("hidden")
-  currentWeatherButton.classList.remove("hidden")
+  currentWeather.classList.add('hidden');
+  forcastWeather.classList.remove('hidden');
+  forcast24h.classList.add('hidden');
+  currentWeatherButton.classList.remove('hidden');
 })
 
 currentWeatherButton.addEventListener('click', function displayCurrentWeather () {
-  currentWeather.classList.remove("hidden")
-  forcastWeather.classList.add("hidden")
-  forcast24h.classList.remove("hidden")
-  currentWeatherButton.classList.add("hidden")
+  currentWeather.classList.remove('hidden');
+  forcastWeather.classList.add('hidden');
+  forcast24h.classList.remove('hidden');
+  currentWeatherButton.classList.add('hidden');
 })
 
 // Remember latest location on reload
