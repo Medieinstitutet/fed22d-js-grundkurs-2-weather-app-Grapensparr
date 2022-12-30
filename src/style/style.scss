@@ -36,54 +36,50 @@ body {
   margin-bottom: 50px;
 }
 
-.currentWeather {
-  .findMyLocation, .city-search {
-    text-align: center;
-    width: 100%;
-    margin-bottom: 10px;
-  }
-
-  .currentPositionFailure {
-    width: 100%;
-    margin-bottom: 10px;
-    color: darkorange;
-  }
-
-  .or {
-    text-align: center;
-  }
-
-  .cityInfo {
-    font-size: 1.8rem;
-  }
-
-  .temperatureInfo{
-    font-size: 2.2rem;
-  }
-  
-  .descriptionInfo {
-    display: flex;
-    align-items: center;
-  }
-  
-  .specifics {
-    display: flex;
-    justify-content: space-evenly;
-    text-align: center;
-  }
+.findMyLocation, .city-search {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
-.forcastSection {
-  .forcast24h, .currentWeatherButton {
-    text-align: center;
-    width: 100%;
-    margin-bottom: 10px;
-  }
+.currentPositionFailure {
+  width: 100%;
+  margin-bottom: 10px;
+  color: darkorange;
+}
+
+.or {
+  text-align: center;
+}
+
+.cityInfo {
+  font-size: 1.8rem; 
+}
+
+.temperatureInfo{
+  font-size: 2.2rem;
+}
   
-  .forcastTitle {
-    text-align: center;
-    margin: 0 40px;
-  }
+.descriptionInfo {
+  display: flex;
+  align-items: center;
+}
+  
+.specifics {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+}
+
+.forcast24h, .currentWeatherButton {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+  
+.forcastTitle {
+  text-align: center;
+  margin: 0 40px;
 }
 
 .hidden {
