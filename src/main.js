@@ -39,7 +39,7 @@ function success (position) {
     .then((response) => response.json())
     .then((data) => this.weatherInfo(data));
 
-  currentPositionFailure.classList.add("hidden");
+  currentPositionFailure.style.display = none;
 }
 
 function error () {
