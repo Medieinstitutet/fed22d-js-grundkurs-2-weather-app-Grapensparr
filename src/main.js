@@ -22,23 +22,9 @@ const addressPart2 = '&units=metric&appid=';
 const forcastAddress = 'https://api.openweathermap.org/data/2.5/forecast?q=';
 const lat = 'https://api.openweathermap.org/data/2.5/weather?lat=';
 const long = '&lon=';
-const twentyfourHours = document.querySelector('.forcast24')
-const fourtyeightHours = document.querySelector('.forcast48')
-const seventytwoHours = document.querySelector('.forcast72')
-const date = new Date();
-const day = date.getDay();
 
-/* require("dotenv").config();
-
-console.log(process.env.apikey); */
-
-// TO DO
-// Add button to select C / F
-// Add 5 day forcast
-
-currentWeather.style.display = 'block';
-forcastWeather.style.display = 'none';
-currentWeatherButton.style.display = 'none';
+forcastWeather.classList.add("hidden");
+currentWeatherButton.classList.add("hidden");
 
 // Weather by location
 searchLocation.addEventListener('click', function askForPermission () {
@@ -53,7 +39,7 @@ function success (position) {
     .then((response) => response.json())
     .then((data) => this.weatherInfo(data));
 
-  currentPositionFailure.style.display = 'none';
+  currentPositionFailure.classList.add("hidden");
 }
 
 function error () {
@@ -165,17 +151,17 @@ function weatherInfoForcast (data2) {
 }
 
 forcast24h.addEventListener('click', function displayForcast () {
-  currentWeather.style.display = 'none';
-  forcastWeather.style.display = 'block';
-  forcast24h.style.display = 'none';
-  currentWeatherButton.style.display = 'block';
+  currentWeather.classList.add("hidden")
+  forcastWeather.classList.remove("hidden")
+  forcast24h.classList.add("hidden")
+  currentWeatherButton.classList.remove("hidden")
 })
 
 currentWeatherButton.addEventListener('click', function displayCurrentWeather () {
-  currentWeather.style.display = 'block';
-  forcastWeather.style.display = 'none';
-  forcast24h.style.display = 'block';
-  currentWeatherButton.style.display = 'none';
+  currentWeather.classList.remove("hidden")
+  forcastWeather.classList.add("hidden")
+  forcast24h.classList.remove("hidden")
+  currentWeatherButton.classList.add("hidden")
 })
 
 // Remember latest location on reload
