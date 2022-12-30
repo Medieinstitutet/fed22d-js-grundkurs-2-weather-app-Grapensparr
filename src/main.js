@@ -22,6 +22,11 @@ const addressPart2 = '&units=metric&appid=';
 const forcastAddress = 'https://api.openweathermap.org/data/2.5/forecast?q=';
 const lat = 'https://api.openweathermap.org/data/2.5/weather?lat=';
 const long = '&lon=';
+const twentyfourHours = document.querySelector('.forcast24')
+const fourtyeightHours = document.querySelector('.forcast48')
+const seventytwoHours = document.querySelector('.forcast72')
+const date = new Date();
+const day = date.getDay();
 
 /* require("dotenv").config();
 
@@ -94,8 +99,7 @@ function weatherInfo (data) {
   const { description } = data.weather[0];
 
   const { icon } = data.weather[0];
-  const iconSrc = 'http://openweathermap.org/img/w/' + icon + '.png';
-  descriptionInfo.innerHTML = '<img src = ' + iconSrc + ' alt="Icon depicting current weather.">' + description.charAt(0).toUpperCase() + description.slice(1);
+  descriptionInfo.innerHTML = '<img src = ./img/icons/' + icon + '.png alt="Icon depicting current weather.">' + description.charAt(0).toUpperCase() + description.slice(1);
 
   const { humidity } = data.main;
   humidityInfo.innerHTML = '<i class="fa-solid fa-droplet"></i>' + '<br>' + humidity + '%';
