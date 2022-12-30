@@ -26,18 +26,6 @@ const long = '&lon=';
 forcastWeather.classList.add('hidden');
 currentWeatherButton.classList.add('hidden');
 
-window.onload = function firstWeather() {
-  const city = 'Stockholm';
-
-  fetch(addressPart1 + city + addressPart2 + apikey)
-    .then((response) => response.json())
-    .then((data) => weatherInfo(data));
-
-  fetch(forcastAddress + city + addressPart2 + apikey)
-    .then((response) => response.json())
-    .then((data2) => weatherInfoForcast(data2));
-};
-
 // Weather by location
 searchLocation.addEventListener('click', function askForPermission () {
   navigator.geolocation.getCurrentPosition(success, error);
@@ -180,7 +168,7 @@ currentWeatherButton.addEventListener('click', function displayCurrentWeather ()
 })
 
 // Remember latest location on reload
-if (window.location.reload) {
+window.onload = function reloadWeather() {
   if (localStorage.length > 0) {
     const currentCity = localStorage.getItem('currentCity');
 
