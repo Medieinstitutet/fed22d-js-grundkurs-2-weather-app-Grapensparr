@@ -87,7 +87,7 @@ function weatherInfo (data) {
   const { description } = data.weather[0];
 
   const { icon } = data.weather[0];
-  descriptionInfo.innerHTML = '<img src = ./img/icons/' + icon + '.png alt="Icon depicting current weather.">' + description.charAt(0).toUpperCase() + description.slice(1);
+  descriptionInfo.innerHTML = '<img src = ./img/icons/' + icon + '.png alt="Icon depicting current weather." height="70px" width="70px">' + description.charAt(0).toUpperCase() + description.slice(1);
 
   const { humidity } = data.main;
   humidityInfo.innerHTML = '<i class="fa-solid fa-droplet"></i>' + '<br>' + humidity + '%';
